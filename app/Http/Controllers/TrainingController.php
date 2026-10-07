@@ -14,7 +14,7 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        $trainings = Training::latest()->paginate(10);
+        $trainings = Training::withCount('participants')->latest()->paginate(10);
         return view('trainings.index', compact('trainings'));
     }
 

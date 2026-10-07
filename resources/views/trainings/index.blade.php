@@ -13,6 +13,7 @@
                 <th>Lokasi</th>
                 <th>Tanggal</th>
                 <th>Kuota</th>
+                <th>Peserta</th>
                 <th>Harga</th>
                 <th>Aksi</th>
             </tr>
@@ -26,6 +27,7 @@
                     <td>{{ $training->location }}</td>
                     <td>{{ $training->held_at }}</td>
                     <td>{{ $training->quota }}</td>
+                    <td>{{ $training->participants_count }} / {{ $training->quota }}</td>
                     <td>{{ number_format($training->price, 0, ',', '.') }}</td>
                     <td>
                         <a href="{{ route('trainings.show', $training) }}" class="btn btn-sm btn-info">Detail</a>

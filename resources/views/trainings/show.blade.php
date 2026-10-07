@@ -9,7 +9,7 @@
     <p>Tanggal: {{ $training->date }}</p>
     <p>Lokasi: {{ $training->location }}</p>
     <p>Harga: {{ $training->price }}</p>
-    <p>Kuota: {{ $registered->count() }}/{{ $training->quota }}
+    <p>Kuota: {{ $training->participants()->count() }}/{{ $training->quota }}
         (sisa: {{ $training->quota - $registered->count() }})
     </p>
 
