@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Training;
+use App\Http\Requests\TrainingRequest;
 
 class TrainingController extends Controller
 {
@@ -28,19 +28,12 @@ class TrainingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TrainingRequest $request)
     {
         //
-        $validated = $request->validate([
-            'title' => 'required|string|max:150|min:5',
-            'description' => 'nullable|string',
-            'location' => 'required|string|max:255',
-            'held_at' => 'required|date|after:today',
-            'quota' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:0',
-        ]);
+        $validated = $request->validated();
         Training::create($validated);
-        return redirect()->route('trainings.index')->with('success', 'Training sudah ditambahkan.');
+        return redirect()->route('trainings.index')->with('success', 'Training berhasil dibuat.');
     }
 
     /**
@@ -66,20 +59,13 @@ class TrainingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Training $training)
+    public function update(TrainingRequest $request, Training $training)
     {
         //
         if (!$training) {
             return redirect()->route('trainings.index')->with('error', 'Training tidak ditemukan.');
         }
-        $validated = $request->validate([
-            'title' => 'required|string|max:150|min:5',
-            'description' => 'nullable|string',
-            'location' => 'required|string|max:255',
-            'held_at' => 'required|date|after:today',
-            'quota' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:0',
-        ]);
+        $validated = $request->validated();
         $training->update($validated);
         return redirect()->route('trainings.index')->with('success', 'Training berhasil diperbarui.');
     }
