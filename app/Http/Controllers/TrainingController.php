@@ -70,8 +70,13 @@ class TrainingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Training $training)
     {
         //
+        if (!$training) {
+            return redirect()->route('trainings.index')->with('error', 'Training tidak ditemukan.');
+        }
+        $training->delete();
+        return redirect()->route('trainings.index')->with('success', 'Training berhasil dihapus.');
     }
 }
