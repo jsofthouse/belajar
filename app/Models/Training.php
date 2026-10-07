@@ -14,4 +14,8 @@ class Training extends Model
         'quota',
         'price',
     ];
+
+    protected $casts = [
+        'held_at' => 'datetime',
+    ];
 }

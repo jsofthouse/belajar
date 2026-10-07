@@ -54,17 +54,34 @@ class TrainingController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Training $training)
     {
         //
+        if (!$training) {
+            return redirect()->route('trainings.index')->with('error', 'Training tidak ditemukan.');
+        }
+        return view('trainings.edit', compact('training'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Training $training)
     {
         //
+        if (!$training) {
+            return redirect()->route('trainings.index')->with('error', 'Training tidak ditemukan.');
+        }
+        $validated = $request->validate([
+            'title' => 'required|string|max:150|min:5',
+            'description' => 'nullable|string',
+            'location' => 'required|string|max:255',
+            'held_at' => 'required|date|after:today',
+            'quota' => 'required|integer|min:1',
+            'price' => 'required|numeric|min:0',
+        ]);
+        $training->update($validated);
+        return redirect()->route('trainings.index')->with('success', 'Training berhasil diperbarui.');
     }
 
     /**
