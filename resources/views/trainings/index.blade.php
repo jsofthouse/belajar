@@ -4,6 +4,28 @@
 
 @section('content')
     <a href="{{ route('trainings.create') }}" class="btn btn-primary mb-3">Tambah Training</a>
+
+    <form action="{{ route('trainings.index') }}" method="GET" class="row g-2 mb-3">
+        <div class="col-md-3">
+            <input type="text" name="q" class="form-control" placeholder="Cari training..."
+                value="{{ request('q') }}">
+        </div>
+        <div class="col-md-3">
+            <select name="loc" class="form-control">
+                <option value="">Pilih Lokasi</option>
+                @foreach ($locations as $location)
+                    <option value="{{ $location }}" {{ request('location') == $location ? 'selected' : '' }}>
+                        {{ $location }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-outline-secondary" type="submit">Cari</button>
+            <a href="{{ route('trainings.index') }}" class="btn btn-outline-secondary">Reset</a>
+        </div>
+    </form>
+
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
