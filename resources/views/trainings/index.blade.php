@@ -28,6 +28,7 @@
                     <td>{{ $training->quota }}</td>
                     <td>{{ number_format($training->price, 0, ',', '.') }}</td>
                     <td>
+                        <a href="{{ route('trainings.show', $training) }}" class="btn btn-sm btn-info">Detail</a>
                         <a href="{{ route('trainings.edit', $training) }}" class="btn btn-sm btn-warning">Edit</a>
 
                         <form action="{{ route('trainings.destroy', $training) }}" method="POST" class="d-inline">
