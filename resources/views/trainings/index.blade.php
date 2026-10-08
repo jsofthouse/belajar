@@ -65,7 +65,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" class="text-center">Tidak ada data training.</td>
+                    <td colspan="9" class="text-center">Tidak ada data training.</td>
                 </tr>
             @endforelse
         </tbody>

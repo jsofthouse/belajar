@@ -15,13 +15,9 @@ class TrainingController extends Controller
     public function index(Request $request)
     {
         $trainings = Training::withCount('participants')
-            ->when($request->q, function ($query, $q) {
-                $query->where(function ($sub) use ($q) {
-                    $sub->where('title', 'like', "%{$q}%")
-                        ->orWhere('location', 'like', "%{$q}%");
-                });
-            })
-            ->when($request->location, fn($query, $loc) => $query->where('location', $loc))
+            ->search($request->q)
+            ->atLocation($request->loc)
+            ->status($request->status)
             ->latest()
             ->paginate(10)
             ->withQueryString();
